@@ -1,0 +1,1 @@
+# POS Tagging (BiLSTM)\n\n## Aim\nAssigns Part-Of-Speech tags to each word.\n\n## Theory\nRNNs process sequential data by maintaining a hidden state that carries information across time steps. This model uses an Embedding layer followed by a SimpleRNN layer to analyze the sentiment of a sentence.

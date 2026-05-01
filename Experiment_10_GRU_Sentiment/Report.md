@@ -1,0 +1,1 @@
+# GRU Sentiment Analysis\n\n## Aim\nSentiment classification using GRU.\n\n## Theory\nRNNs process sequential data by maintaining a hidden state that carries information across time steps. This model uses an Embedding layer followed by a SimpleRNN layer to analyze the sentiment of a sentence.

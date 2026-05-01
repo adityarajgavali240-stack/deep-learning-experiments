@@ -1,0 +1,1 @@
+# RNN — Sentiment Analysis\n\n## Aim\nRecurrent Neural Network for binary text sentiment analysis (Positive/Negative).\n\n## Theory\nRNNs process sequential data by maintaining a hidden state that carries information across time steps. This model uses an Embedding layer followed by a SimpleRNN layer to analyze the sentiment of a sentence.

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 12 — Transformers</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:#050510;color:#e0e0e0;min-height:100vh;overflow-x:hidden}.bg-orb{position:fixed;border-radius:50%;filter:blur(120px);opacity:.15;z-index:0;animation:float 20s ease-in-out infinite alternate}.bg-orb.o1{width:500px;height:500px;background:#7c3aed;top:-100px;left:-100px}.bg-orb.o2{width:400px;height:400px;background:#06b6d4;bottom:-100px;right:-100px;animation-delay:-10s}.bg-orb.o3{width:300px;height:300px;background:#ec4899;top:50%;left:50%;animation-delay:-5s}@keyframes float{0%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-30px) scale(1.1)}100%{transform:translate(-20px,20px) scale(.95)}}.container{max-width:1100px;margin:0 auto;padding:40px 20px;position:relative;z-index:1}.header{text-align:center;margin-bottom:40px}.badge{display:inline-block;padding:6px 16px;background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.4);border-radius:20px;font-size:.75rem;font-weight:600;color:#a78bfa;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}.header h1{font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,#a78bfa,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}.header p{color:#94a3b8;font-size:.95rem;max-width:600px;margin:0 auto}.glass{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;padding:28px;transition:all .3s ease}.glass:hover{border-color:rgba(124,58,237,.3);background:rgba(255,255,255,.05)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}@media(max-width:768px){.grid{grid-template-columns:1fr}}.card-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:16px;display:flex;align-items:center;gap:8px}.card-title span{font-size:1.2rem}label{font-size:.8rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px}input[type=number], input[type=text], textarea{width:100%;padding:10px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:.9rem;font-family:'Inter',sans-serif;outline:none;transition:all .3s}input:focus, textarea:focus{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.15)}.btn{padding:12px 28px;border:none;border-radius:12px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:.9rem;transition:all .3s;display:inline-flex;align-items:center;gap:8px}.btn-primary{background:linear-gradient(135deg,#7c3aed,#06b6d4);color:#fff;box-shadow:0 4px 15px rgba(124,58,237,.3)}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(124,58,237,.4)}.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}.status-bar{text-align:center;padding:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;margin-bottom:24px;font-size:.85rem;color:#64748b}.status-bar.training{color:#f59e0b;border-color:rgba(245,158,11,.3)}.status-bar.ready{color:#22c55e;border-color:rgba(34,197,94,.3)}.spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.upload-zone{border:2px dashed rgba(255,255,255,.1);border-radius:12px;padding:40px;text-align:center;cursor:pointer;transition:all .3s}.upload-zone:hover{border-color:rgba(124,58,237,.4);background:rgba(124,58,237,.05)}.upload-zone img{max-width:200px;max-height:200px;border-radius:8px;margin-top:12px}.pred-big{font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,#a78bfa,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin:16px 0 4px}.conf{text-align:center;color:#94a3b8;font-size:.85rem;margin-bottom:16px}.prob-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}.prob-label{width:80px;font-size:.75rem;font-weight:500;color:#94a3b8;text-align:right}.prob-track{flex:1;height:14px;background:rgba(255,255,255,.05);border-radius:7px;overflow:hidden}.prob-fill{height:100%;border-radius:7px;transition:width .5s;background:linear-gradient(90deg,#7c3aed,#06b6d4)}.prob-val{width:40px;font-size:.7rem;color:#64748b}.chart-container{width:100%;height:200px;margin-top:16px}
+    </style>
+</head>
+<body>
+    <div class="bg-orb o1"></div><div class="bg-orb o2"></div><div class="bg-orb o3"></div>
+    <div class="container">
+        <div class="header">
+            <div class="badge">Experiment 12</div>
+            <h1>Case Study — Transformer Architecture</h1>
+            <p>Understanding the Transformer Architecture: Revolutionizing Sequence Modeling.</p>
+        </div>
+        
+        <div class="grid">
+            <div class="glass" style="grid-column: span 2;">
+                <div class="card-title"><span>⚙️</span> Transformer Components</div>
+                <p style="color:#94a3b8; line-height: 1.8; margin-bottom: 20px;">
+                The Transformer consists of an encoder and a decoder. Each layer contains Multi-Head Self-Attention, a Feedforward Neural Network, Residual Connections, and Layer Normalization.<br><br>
+                Self-attention computes relationships between every pair of tokens using Queries (Q), Keys (K), and Values (V):<br>
+                <code style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 4px; display: block; margin: 10px 0; color: #a78bfa;">Attention(Q, K, V) = softmax(QK^T / sqrt(d_k)) V</code>
+                Positional encoding provides sequence order information since Transformers lack recurrence.
+                </p>
+                <div class="card-title"><span>🚀</span> Applications & Case Studies</div>
+                <ul style="color:#94a3b8; line-height: 1.8; padding-left: 20px;">
+                    <li><strong>BERT (2018):</strong> Introduced bidirectional context understanding.</li>
+                    <li><strong>GPT-3 (2020):</strong> Achieved few-shot learning with 175B parameters.</li>
+                    <li><strong>Vision Transformer (ViT, 2020):</strong> Applied Transformers to image patches.</li>
+                    <li><strong>T5 (2019):</strong> Unified NLP tasks under a text-to-text framework.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="glass" style="margin-top: 24px;">
+            <div class="card-title"><span>📖</span> Theory</div>
+            <p style="color:#94a3b8;font-size:.85rem;line-height:1.7">The Transformer architecture, introduced by Vaswani et al. in 2017 in 'Attention Is All You Need', marked a paradigm shift in deep learning. Unlike traditional RNNs, Transformers rely entirely on the self-attention mechanism, allowing for parallel computation and state-of-the-art performance across NLP and vision tasks.</p>
+        </div>
+
+    </div>
+    
+</body>
+</html>

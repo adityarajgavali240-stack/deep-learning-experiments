@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 04 — CNN Facial Emotion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:#050510;color:#e0e0e0;min-height:100vh;overflow-x:hidden}.bg-orb{position:fixed;border-radius:50%;filter:blur(120px);opacity:.15;z-index:0;animation:float 20s ease-in-out infinite alternate}.bg-orb.o1{width:500px;height:500px;background:#7c3aed;top:-100px;left:-100px}.bg-orb.o2{width:400px;height:400px;background:#06b6d4;bottom:-100px;right:-100px;animation-delay:-10s}.bg-orb.o3{width:300px;height:300px;background:#ec4899;top:50%;left:50%;animation-delay:-5s}@keyframes float{0%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-30px) scale(1.1)}100%{transform:translate(-20px,20px) scale(.95)}}.container{max-width:1100px;margin:0 auto;padding:40px 20px;position:relative;z-index:1}.header{text-align:center;margin-bottom:40px}.badge{display:inline-block;padding:6px 16px;background:rgba(124,58,237,.2);border:1px solid rgba(124,58,237,.4);border-radius:20px;font-size:.75rem;font-weight:600;color:#a78bfa;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}.header h1{font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,#a78bfa,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}.header p{color:#94a3b8;font-size:.95rem;max-width:600px;margin:0 auto}.glass{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;padding:28px;transition:all .3s ease}.glass:hover{border-color:rgba(124,58,237,.3);background:rgba(255,255,255,.05)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}@media(max-width:768px){.grid{grid-template-columns:1fr}}.card-title{font-size:1rem;font-weight:700;color:#fff;margin-bottom:16px;display:flex;align-items:center;gap:8px}.card-title span{font-size:1.2rem}label{font-size:.8rem;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px}input[type=number], input[type=text], textarea{width:100%;padding:10px 14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:.9rem;font-family:'Inter',sans-serif;outline:none;transition:all .3s}input:focus, textarea:focus{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.15)}.btn{padding:12px 28px;border:none;border-radius:12px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:.9rem;transition:all .3s;display:inline-flex;align-items:center;gap:8px}.btn-primary{background:linear-gradient(135deg,#7c3aed,#06b6d4);color:#fff;box-shadow:0 4px 15px rgba(124,58,237,.3)}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(124,58,237,.4)}.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}.status-bar{text-align:center;padding:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;margin-bottom:24px;font-size:.85rem;color:#64748b}.status-bar.training{color:#f59e0b;border-color:rgba(245,158,11,.3)}.status-bar.ready{color:#22c55e;border-color:rgba(34,197,94,.3)}.spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.upload-zone{border:2px dashed rgba(255,255,255,.1);border-radius:12px;padding:40px;text-align:center;cursor:pointer;transition:all .3s}.upload-zone:hover{border-color:rgba(124,58,237,.4);background:rgba(124,58,237,.05)}.upload-zone img{max-width:200px;max-height:200px;border-radius:8px;margin-top:12px}.pred-big{font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,#a78bfa,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin:16px 0 4px}.conf{text-align:center;color:#94a3b8;font-size:.85rem;margin-bottom:16px}.prob-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}.prob-label{width:80px;font-size:.75rem;font-weight:500;color:#94a3b8;text-align:right}.prob-track{flex:1;height:14px;background:rgba(255,255,255,.05);border-radius:7px;overflow:hidden}.prob-fill{height:100%;border-radius:7px;transition:width .5s;background:linear-gradient(90deg,#7c3aed,#06b6d4)}.prob-val{width:40px;font-size:.7rem;color:#64748b}.chart-container{width:100%;height:200px;margin-top:16px}
+    </style>
+</head>
+<body>
+    <div class="bg-orb o1"></div><div class="bg-orb o2"></div><div class="bg-orb o3"></div>
+    <div class="container">
+        <div class="header">
+            <div class="badge">Experiment 04</div>
+            <h1>CNN — Facial Emotion Detection</h1>
+            <p>Custom Convolutional Neural Network for classifying human facial emotions from grayscale images.</p>
+        </div>
+        
+        <div id="status" class="status-bar">⏳ Model not trained. Train the CNN below.</div>
+        <div class="grid">
+            <div class="glass">
+                <div class="card-title"><span>🧠</span> Train Emotion CNN</div>
+                <label>Epochs</label>
+                <input type="number" id="epochs" value="10" min="1" max="50" style="margin-bottom:16px">
+                <button class="btn btn-primary" id="trainBtn" onclick="trainModel()">🚀 Train Model</button>
+                <div class="chart-container"><canvas id="chart"></canvas></div>
+            </div>
+            <div class="glass">
+                <div class="card-title"><span>🖼️</span> Detect Emotion</div>
+                <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                    <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFile(this)">
+                    <p style="color:#94a3b8;font-size:.85rem">📁 Click or drag a face image here</p>
+                    <img id="preview" style="display:none">
+                </div>
+                <button class="btn btn-primary" style="margin-top:16px;width:100%" onclick="classifyImage()" id="classBtn" disabled>🔍 Detect Emotion</button>
+                <div id="resultArea" style="display:none">
+                    <div class="pred-big" id="predClass">—</div>
+                    <div class="conf" id="predConf"></div>
+                    <div id="probBars"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="glass" style="margin-top: 24px;">
+            <div class="card-title"><span>📖</span> Theory</div>
+            <p style="color:#94a3b8;font-size:.85rem;line-height:1.7">Facial emotion recognition uses a deep CNN architecture (Conv2D -> ReLU -> MaxPool2D) to extract spatial features from 48x48 pixel images. The network classifies the image into one of 7 emotion categories: Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral.</p>
+        </div>
+
+    </div>
+    
+        <script>
+        let selectedFile = null;
+        function handleFile(input) {
+            if(input.files[0]){selectedFile=input.files[0];const r=new FileReader();r.onload=e=>{const img=document.getElementById('preview');img.src=e.target.result;img.style.display='block';};r.readAsDataURL(selectedFile);}
+        }
+        function drawChart(h){
+            const c=document.getElementById('chart'),x=c.getContext('2d'),dpr=window.devicePixelRatio||1,rect=c.parentElement.getBoundingClientRect();
+            c.width=rect.width*dpr;c.height=rect.height*dpr;x.scale(dpr,dpr);
+            const W=rect.width,H=rect.height;x.clearRect(0,0,W,H);
+            const accs=h.map(v=>v.accuracy),losses=h.map(v=>v.loss),maxL=Math.max(...losses);
+            const pad={top:20,right:20,bottom:30,left:40},cw=W-pad.left-pad.right,ch=H-pad.top-pad.bottom;
+            x.strokeStyle='#22c55e';x.lineWidth=2;x.beginPath();
+            accs.forEach((a,i)=>{const px=pad.left+(i/(accs.length-1))*cw,py=pad.top+(1-a)*ch;i===0?x.moveTo(px,py):x.lineTo(px,py);});x.stroke();
+            x.strokeStyle='#ef4444';x.lineWidth=2;x.beginPath();
+            losses.forEach((l,i)=>{const px=pad.left+(i/(losses.length-1))*cw,py=pad.top+(1-l/maxL)*ch;i===0?x.moveTo(px,py):x.lineTo(px,py);});x.stroke();
+            x.fillStyle='#64748b';x.font='10px Inter';x.textAlign='center';x.fillText('Epochs — 🟢 Accuracy  🔴 Loss',W/2,H-4);
+        }
+        async function trainModel(){
+            const btn=document.getElementById('trainBtn'),status=document.getElementById('status');
+            btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Training...';
+            status.className='status-bar training';status.textContent='⏳ Training CNN...';
+            const res=await fetch('/api/train',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({epochs:parseInt(document.getElementById('epochs').value)})});
+            const data=await res.json();drawChart(data.history);
+            document.getElementById('classBtn').disabled=false;
+            const last=data.history[data.history.length-1];
+            status.className='status-bar ready';status.textContent=`✅ Done! Accuracy: ${(last.accuracy*100).toFixed(1)}%`;
+            btn.disabled=false;btn.innerHTML='🚀 Train Model';
+        }
+        async function classifyImage(){
+            if(!selectedFile)return;
+            const fd=new FormData();fd.append('image',selectedFile);
+            const res=await fetch('/api/predict',{method:'POST',body:fd});
+            const data=await res.json();
+            document.getElementById('resultArea').style.display='block';
+            document.getElementById('predClass').textContent=data.emotion;
+            document.getElementById('predConf').textContent=`Confidence: ${data.confidence}%`;
+            let bars='';
+            Object.entries(data.all_emotions).sort((a,b)=>b[1]-a[1]).forEach(([cls,p])=>{
+                bars+=`<div class="prob-row"><div class="prob-label">${cls}</div><div class="prob-track"><div class="prob-fill" style="width:${p}%"></div></div><div class="prob-val">${p}%</div></div>`;
+            });
+            document.getElementById('probBars').innerHTML=bars;
+        }
+        </script>
+        
+</body>
+</html>
